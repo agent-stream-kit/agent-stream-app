@@ -33,6 +33,7 @@
 
   const inputs = $derived(data.inputs ?? []);
   const outputs = $derived(data.outputs ?? []);
+  const showErr = $derived(data.show_err ?? false);
 
   let bgColor = $derived(bgColors[agentDef ? (data.enabled ? 1 : 0) : 2]);
 
@@ -87,6 +88,9 @@
   <div class="w-full grow flex flex-col gap-2 overflow-auto pretty-scroll min-h-0">
     {@render contents()}
   </div>
+  {#if showErr}
+    <div class="text-right mr-2 mb-2">err</div>
+  {/if}
 </div>
 {#each inputs as input, idx}
   <Handle
@@ -104,3 +108,11 @@
     style="top: {idx * HANDLE_GAP + HANDLE_OFFSET}px; {DEFAULT_HANDLE_STYLE}"
   />
 {/each}
+{#if showErr}
+  <Handle
+    id="err"
+    type="source"
+    position={Position.Right}
+    style="top: {(ht ?? height ?? 100) - 20}px; {DEFAULT_HANDLE_STYLE}"
+  />
+{/if}

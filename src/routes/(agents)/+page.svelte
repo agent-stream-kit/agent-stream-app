@@ -583,6 +583,16 @@
     updateCurrentStreamActivity();
   }
 
+  async function onToggleErr() {
+    const [selectedNodes, _] = selectedNodesAndEdges();
+    if (selectedNodes.length == 0) {
+      return;
+    }
+    selectedNodes.forEach((node) => {
+      updateNodeData(node.id, { show_err: !node.data.show_err });
+    });
+  }
+
   let nodeContextMenu: {
     x: number;
     y: number;
@@ -688,6 +698,7 @@
         onstop={onPause}
         oncut={cutNodesAndEdges}
         oncopy={copyNodesAndEdges}
+        ontoggleerr={onToggleErr}
       />
     {/if}
 

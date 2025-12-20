@@ -12,9 +12,10 @@
     onstop: () => void;
     oncut: () => void;
     oncopy: () => void;
+    ontoggleerr: () => void;
   };
 
-  let { x, y, hideNodeContextMenu, onstart, onstop, oncut, oncopy }: Props = $props();
+  let { x, y, hideNodeContextMenu, onstart, onstop, oncut, oncopy, ontoggleerr }: Props = $props();
 
   function handleStart() {
     hideNodeContextMenu();
@@ -35,6 +36,11 @@
     hideNodeContextMenu();
     oncopy();
   }
+
+  function handleToggleErr() {
+    hideNodeContextMenu();
+    ontoggleerr();
+  }
 </script>
 
 <div
@@ -45,4 +51,5 @@
   <button onclick={handleStop} class="{MENU_CLASS} border-b border-gray-600 pb-1 mb-1">Stop</button>
   <button onclick={handleCut} class={MENU_CLASS}>Cut</button>
   <button onclick={handleCopy} class="{MENU_CLASS} pb-1">Copy</button>
+  <button onclick={handleToggleErr} class="{MENU_CLASS} pb-1">Err</button>
 </div>
