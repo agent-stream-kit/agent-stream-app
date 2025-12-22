@@ -66,7 +66,7 @@
 
 <div class="backdrop-blur-xs" bind:this={containerEl}>
   <div class="mb-2 flex items-center justify-between gap-2">
-    <h4 class="mb-0">Agents</h4>
+    <h4 class="text-primary mb-0">Agents</h4>
     <input
       type="search"
       class="w-40 mr-1 rounded-md border border-gray-800 bg-gray-900 px-2 py-0.5 text-xs text-gray-100 focus:border-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400"

@@ -65,7 +65,7 @@
   });
 </script>
 
-<div class="backdrop-blur-xs">
+<div class="absolute top-0 left-10 w-40 z-10 backdrop-blur-xs text-primary">
   <h4>Streams</h4>
   <hr />
   <Accordion flush>

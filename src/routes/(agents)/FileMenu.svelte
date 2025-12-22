@@ -57,7 +57,7 @@
   }
 </script>
 
-<div class="absolute top-0 left-45 w-40 z-10 backdrop-blur-xs">
+<div class="absolute top-0 left-55 w-40 z-10 backdrop-blur-xs">
   <Accordion flush>
     <AccordionItem
       bind:open

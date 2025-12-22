@@ -702,6 +702,9 @@
       />
     {/if}
 
+    <div class="absolute top-1 left-0 w-40">
+      <StreamList {streamNames} currentStream={streamState.id} {streamActivities} {changeStream} />
+    </div>
     <FileMenu
       {onNewStream}
       {onRenameStream}
@@ -710,13 +713,10 @@
       {onExportStream}
       {onImportStream}
     />
+    <div class="absolute right-0 top-10 w-60">
+      <AgentList {agentDefs} {onAddAgent} onDragAgentStart={handleAgentDragStart} />
+    </div>
   </SvelteFlow>
-  <div class="absolute top-1 left-0 w-40">
-    <StreamList {streamNames} currentStream={streamState.id} {streamActivities} {changeStream} />
-  </div>
-  <div class="absolute right-0 top-1 w-60">
-    <AgentList {agentDefs} {onAddAgent} onDragAgentStart={handleAgentDragStart} />
-  </div>
 </div>
 
 {#if newStreamModal}
