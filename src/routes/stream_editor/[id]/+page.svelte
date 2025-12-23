@@ -619,8 +619,10 @@
       ontoggleerr={onToggleErr}
     />
 
-    <div class="absolute right-6 top-10 w-60 z-20">
-      <AgentList {agentDefs} {onAddAgent} onDragAgentStart={handleAgentDragStart} />
+    <div
+      class="absolute right-6 top-0 w-60 z-20 max-h-[calc(100vh-220px)] overflow-y-auto pretty-scroll overflow-x-hidden rounded-md border shadow-lg"
+    >
+      <AgentList class="h-full" {agentDefs} {onAddAgent} onDragAgentStart={handleAgentDragStart} />
     </div>
   </SvelteFlow>
 </div>

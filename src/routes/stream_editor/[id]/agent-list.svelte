@@ -1,7 +1,6 @@
 <script lang="ts">
   import { type ComponentProps } from "svelte";
 
-  import { Accordion } from "flowbite-svelte";
   import type { AgentDefinitions } from "tauri-plugin-askit-api";
 
   import * as Sidebar from "$lib/components/ui/sidebar/index.js";
@@ -14,21 +13,7 @@
     onDragAgentStart?: (event: DragEvent, agentName: string) => void;
   };
 
-  let {
-    ref = $bindable(null),
-    agentDefs,
-    onAddAgent,
-    onDragAgentStart,
-    ...restProps
-  }: Props = $props();
-
-  // function handleAddAgentClick(event: MouseEvent, agentName: string) {
-  //   console.log(containerEl);
-  //   const rect = containerEl?.getBoundingClientRect();
-  //   const x = (rect?.left ?? window.innerWidth * 0.8) - 100;
-  //   const y = event.clientY - 20;
-  //   onAddAgent(agentName, { x, y });
-  // }
+  let { agentDefs, onAddAgent, onDragAgentStart, ...restProps }: Props = $props();
 
   let searchTerm = $state("");
 
@@ -73,20 +58,20 @@
   );
 </script>
 
-<Sidebar.Root collapsible="none" class="" variant="floating" {...restProps}>
+<Sidebar.Root collapsible="none" variant="floating" class="rounded-md" {...restProps}>
   <Sidebar.Header>
     <div class="mb-2 flex items-center justify-between gap-2">
-      <h4 class="text-primary mb-0">Agents</h4>
+      <div class="text-primary font-bold mb-0">Agents</div>
       <input
         type="search"
-        class="w-40 mr-1 rounded-md border border-gray-800 bg-gray-900 px-2 py-0.5 text-xs text-gray-100 focus:border-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400"
+        class="w-38 ml-2 mr-10 rounded-md border border-gray-800 bg-gray-900 px-1 py-0.5 text-sm text-gray-100 focus:border-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400"
         bind:value={searchTerm}
       />
     </div>
   </Sidebar.Header>
   <Sidebar.Content>
-    <Accordion flush multiple={expandAll}>
+    <Sidebar.Menu>
       <AgentListItems {categories} {agentDefs} {expandAll} {onDragAgentStart} />
-    </Accordion>
+    </Sidebar.Menu>
   </Sidebar.Content>
 </Sidebar.Root>

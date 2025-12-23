@@ -1,6 +1,8 @@
 <script lang="ts">
-  import { Accordion, AccordionItem } from "flowbite-svelte";
   import type { AgentDefinitions } from "tauri-plugin-askit-api";
+
+  import * as Collapsible from "$lib/components/ui/collapsible/index.js";
+  import * as Sidebar from "$lib/components/ui/sidebar/index.js";
 
   import AgentListItems from "./agent-list-item.svelte";
 
@@ -20,27 +22,35 @@
   {#if key === "00agents"}
     {@const agentNames = categories[key].sort()}
     {#each agentNames as agentName}
-      <button
-        type="button"
-        class="w-full pl-2 text-left text-gray-400 hover:text-black hover:bg-gray-200 dark:hover:bg-gray-400"
+      <Sidebar.MenuSubItem
+        class="font-light"
         draggable={true}
         ondragstart={(event) => onDragAgentStart?.(event, agentName)}
       >
         {agentDefs[agentName].title ?? agentName}
-      </button>
+      </Sidebar.MenuSubItem>
     {/each}
   {:else}
-    <AccordionItem
-      borderBottomClass="border-b group-last:border-none"
-      paddingFlush="pl-2 pr-2 py-1"
-      open={expandAll}
-    >
-      <div slot="header">
-        {key}
-      </div>
-      <Accordion flush multiple={expandAll}>
-        <AgentListItems categories={categories[key]} {agentDefs} {expandAll} {onDragAgentStart} />
-      </Accordion>
-    </AccordionItem>
+    <Collapsible.Root open={expandAll} class="group/collapsible">
+      <Sidebar.MenuItem>
+        <Collapsible.Trigger>
+          {#snippet child({ props })}
+            <Sidebar.MenuButton class="text-base" {...props}>
+              {key}
+            </Sidebar.MenuButton>
+          {/snippet}
+        </Collapsible.Trigger>
+        <Collapsible.Content>
+          <Sidebar.MenuSub>
+            <AgentListItems
+              categories={categories[key]}
+              {agentDefs}
+              {expandAll}
+              {onDragAgentStart}
+            />
+          </Sidebar.MenuSub>
+        </Collapsible.Content>
+      </Sidebar.MenuItem>
+    </Collapsible.Root>
   {/if}
 {/each}
