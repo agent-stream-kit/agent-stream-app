@@ -8,9 +8,6 @@
   import AppSidebar from "$lib/components/app-sidebar.svelte";
   import * as Sidebar from "$lib/components/ui/sidebar/index.js";
 
-  import Attribution from "@/components/Attribution.svelte";
-  import NavBar from "@/components/NavBar.svelte";
-
   import "../app.css";
   import type { LayoutProps } from "./$types";
 
@@ -46,10 +43,5 @@
 
 <Sidebar.Provider>
   <AppSidebar />
-  <main class="w-full min-h-screen">
-    <Sidebar.Trigger />
-    <NavBar />
-    {@render children?.()}
-    <Attribution />
-  </main>
+  {@render children?.()}
 </Sidebar.Provider>
