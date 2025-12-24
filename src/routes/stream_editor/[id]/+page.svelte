@@ -3,8 +3,6 @@
 
   import { getContext, onMount } from "svelte";
 
-  import ArrowDownIcon from "@lucide/svelte/icons/arrow-down";
-  import ArrowUpIcon from "@lucide/svelte/icons/arrow-up";
   import {
     useSvelteFlow,
     Background,
@@ -35,8 +33,6 @@
 
   import { goto } from "$app/navigation";
 
-  import NavActions from "$lib/components/nav-actions.svelte";
-
   import {
     deserializeAgentStream,
     deserializeChannelSpec,
@@ -52,7 +48,9 @@
 
   import AgentList from "./agent-list.svelte";
   import AgentNode from "./agent-node.svelte";
+  import Menubar from "./menubar.svelte";
   import NodeContextMenu from "./node-context-menu.svelte";
+  import StreamName from "./stream-name.svelte";
 
   let { data } = $props();
 
@@ -462,28 +460,12 @@
   function handlePaneClick() {
     hideNodeContextMenu();
   }
-
-  const navActionData = [
-    [
-      {
-        label: "Import",
-        icon: ArrowUpIcon,
-        onclick: onImportStream,
-      },
-      {
-        label: "Export",
-        icon: ArrowDownIcon,
-        onclick: onExportStream,
-      },
-    ],
-  ];
 </script>
 
 <div class="flex flex-col w-full min-h-screen">
-  <header class="flex flex-none h-14 items-centger">
-    <div class="ms-auto px-3">
-      <NavActions data={navActionData} />
-    </div>
+  <header class="flex flex-none items-center justify-between pl-2">
+    <Menubar {onImportStream} {onExportStream} />
+    <StreamName name={stream.name} class="mr-4" />
   </header>
   <SvelteFlow
     bind:nodes
@@ -514,6 +496,7 @@
       gap={28}
       lineWidth={1}
     />
+
     <Controls />
     <MiniMap />
     <ButtonGroup class="absolute bottom-4 z-10 w-full flex justify-center">
@@ -541,7 +524,7 @@
     />
 
     <div
-      class="absolute right-6 top-0 w-60 z-20 max-h-[calc(100vh-220px)] overflow-y-auto pretty-scroll overflow-x-hidden rounded-md border shadow-lg"
+      class="absolute right-6 top-0 w-60 z-20 max-h-[calc(100vh-200px)] overflow-y-auto pretty-scroll overflow-x-hidden rounded-md border shadow-lg"
     >
       <AgentList class="h-full" {agentDefs} {onAddAgent} onDragAgentStart={handleAgentDragStart} />
     </div>
