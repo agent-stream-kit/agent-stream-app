@@ -7,8 +7,8 @@
   }
 </script>
 
-<div class="text-xs">
-  <button {onclick}>
+<div class="text-xs flex justify-center">
+  <button {onclick} class="text-center">
     {#await getVersion() then version}
       {version}
     {/await}

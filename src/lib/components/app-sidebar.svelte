@@ -5,6 +5,7 @@
   import SettingsIcon from "@lucide/svelte/icons/settings";
   import WorkflowIcon from "@lucide/svelte/icons/workflow";
 
+  import logo from "$lib/assets/logo.png";
   import { useSidebar } from "$lib/components/ui/sidebar/context.svelte.js";
   import * as Sidebar from "$lib/components/ui/sidebar/index.js";
 
@@ -40,20 +41,8 @@
 
 <Sidebar.Root collapsible="icon" {...restProps}>
   <Sidebar.Header>
-    <Sidebar.MenuItem>
-      <Sidebar.MenuButton
-        size="lg"
-        class="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-      >
-        <div
-          class="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg"
-        >
-          <WorkflowIcon class="size-4" />
-        </div>
-        <div class="grid flex-1 text-start text-sm leading-tight">
-          <span class="truncate font-medium"> Agent Stream App </span>
-        </div>
-      </Sidebar.MenuButton>
+    <Sidebar.MenuItem class="flex justify-center">
+      <img src={logo} alt="logo" class="size-6" />
     </Sidebar.MenuItem>
   </Sidebar.Header>
   <Sidebar.Content>
@@ -61,8 +50,6 @@
     <NavSecondary items={data.navSecondary} class="mt-auto" />
   </Sidebar.Content>
   <Sidebar.Footer>
-    <div class="px-1">
-      <Attribution />
-    </div>
+    <Attribution />
   </Sidebar.Footer>
 </Sidebar.Root>
