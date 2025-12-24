@@ -74,7 +74,7 @@
           {/each}
 
           <Field orientation="responsive">
-            <Button onclick={saveConfigs}>Save</Button>
+            <Button onclick={saveConfigs} variant="outline">Save</Button>
           </Field>
         </FieldGroup>
       </form>

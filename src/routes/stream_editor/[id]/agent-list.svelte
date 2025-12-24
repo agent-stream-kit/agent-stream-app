@@ -3,6 +3,8 @@
 
   import type { AgentDefinitions } from "tauri-plugin-askit-api";
 
+  import { Input } from "$lib/components/ui/input/index.js";
+  import { Label } from "$lib/components/ui/label/index.js";
   import * as Sidebar from "$lib/components/ui/sidebar/index.js";
 
   import AgentListItems from "./agent-list-item.svelte";
@@ -60,11 +62,11 @@
 
 <Sidebar.Root collapsible="none" variant="floating" class="rounded-md" {...restProps}>
   <Sidebar.Header>
-    <div class="mb-2 flex items-center justify-between gap-2">
-      <div class="text-primary font-bold mb-0">Agents</div>
-      <input
+    <div class="flex items-center gap-4">
+      <Label>Agents</Label>
+      <Input
         type="search"
-        class="w-38 ml-2 mr-10 rounded-md border border-gray-800 bg-gray-900 px-1 py-0.5 text-sm text-gray-100 focus:border-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400"
+        class="mr-5 text-sm h-6 bg-sidebar dark:bg-sidebar"
         bind:value={searchTerm}
       />
     </div>
