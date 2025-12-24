@@ -1,42 +1,10 @@
 <script lang="ts">
-  import { open } from "@tauri-apps/plugin-dialog";
+  import { getContext, onMount } from "svelte";
 
-  import { getContext, onMount, tick } from "svelte";
+  import { newAgentStream } from "tauri-plugin-askit-api";
 
-  import { Button, ButtonGroup, GradientButton, Modal, Toast } from "flowbite-svelte";
-  import { ExclamationCircleOutline, PauseOutline, PlayOutline } from "flowbite-svelte-icons";
-  import hotkeys from "hotkeys-js";
-  import {
-    addAgent,
-    addChannel,
-    newAgentSpec,
-    removeAgent,
-    removeChannel,
-    startAgent,
-    stopAgent,
-    newAgentStream,
-    copySubStream,
-  } from "tauri-plugin-askit-api";
-  import type { AgentSpec, ChannelSpec } from "tauri-plugin-askit-api";
-
-  import { Separator } from "$lib/components/ui/separator/index.js";
-  import * as Sidebar from "$lib/components/ui/sidebar/index.js";
-
-  import {
-    deserializeAgentStream,
-    deserializeChannelSpec,
-    deserializeAgentStreamNode,
-    importAgentStream,
-    removeAgentStream,
-    renameAgentStream,
-    saveAgentStream,
-    serializeAgentStream,
-    serializeAgentStreamEdge,
-    serializeAgentStreamNode,
-    setAgentDefinitionsContext,
-  } from "@/lib/agent";
-  import { streamState } from "@/lib/shared.svelte";
-  import type { TAgentStreamNode, TAgentStreamEdge, TAgentStream } from "@/lib/types";
+  import { deserializeAgentStream, removeAgentStream, renameAgentStream } from "@/lib/agent";
+  import type { TAgentStream } from "@/lib/types";
 
   import StreamList from "./stream-list.svelte";
 
@@ -101,7 +69,5 @@
   });
 </script>
 
-<header class="flex-none h-14 items-centger">
-  <Sidebar.Trigger />
-</header>
+<header class="flex-none h-14 items-centger"></header>
 <StreamList {streamNames} {streamActivities} {createNewStream} {renameStream} {deleteStream} />

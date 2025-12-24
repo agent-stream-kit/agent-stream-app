@@ -1,9 +1,11 @@
 <script lang="ts">
   import type { ComponentProps } from "svelte";
+  import { onMount } from "svelte";
 
   import SettingsIcon from "@lucide/svelte/icons/settings";
   import WorkflowIcon from "@lucide/svelte/icons/workflow";
 
+  import { useSidebar } from "$lib/components/ui/sidebar/context.svelte.js";
   import * as Sidebar from "$lib/components/ui/sidebar/index.js";
 
   import Attribution from "./attribution.svelte";
@@ -28,6 +30,12 @@
   };
 
   let { ...restProps }: ComponentProps<typeof Sidebar.Root> = $props();
+
+  let sidebar = useSidebar();
+
+  onMount(() => {
+    sidebar.setOpen(false);
+  });
 </script>
 
 <Sidebar.Root collapsible="icon" {...restProps}>
@@ -53,7 +61,8 @@
     <NavSecondary items={data.navSecondary} class="mt-auto" />
   </Sidebar.Content>
   <Sidebar.Footer>
-    <Attribution />
+    <div class="px-1">
+      <Attribution />
+    </div>
   </Sidebar.Footer>
-  <Sidebar.Rail />
 </Sidebar.Root>

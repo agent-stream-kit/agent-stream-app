@@ -1,4 +1,5 @@
 <script lang="ts">
+  import ChevronRightIcon from "@lucide/svelte/icons/chevron-right";
   import type { AgentDefinitions } from "tauri-plugin-askit-api";
 
   import * as Collapsible from "$lib/components/ui/collapsible/index.js";
@@ -22,20 +23,23 @@
   {#if key === "00agents"}
     {@const agentNames = categories[key].sort()}
     {#each agentNames as agentName}
-      <Sidebar.MenuSubItem
-        class="font-light"
+      <Sidebar.MenuButton
         draggable={true}
         ondragstart={(event) => onDragAgentStart?.(event, agentName)}
       >
         {agentDefs[agentName].title ?? agentName}
-      </Sidebar.MenuSubItem>
+      </Sidebar.MenuButton>
     {/each}
   {:else}
-    <Collapsible.Root open={expandAll} class="group/collapsible">
-      <Sidebar.MenuItem>
+    <Sidebar.MenuItem>
+      <Collapsible.Root
+        open={expandAll}
+        class="group/collapsible [&[data-state=open]>button>svg:first-child]:rotate-90"
+      >
         <Collapsible.Trigger>
           {#snippet child({ props })}
-            <Sidebar.MenuButton class="text-base" {...props}>
+            <Sidebar.MenuButton {...props}>
+              <ChevronRightIcon className="transition-transform" />
               {key}
             </Sidebar.MenuButton>
           {/snippet}
@@ -50,7 +54,7 @@
             />
           </Sidebar.MenuSub>
         </Collapsible.Content>
-      </Sidebar.MenuItem>
-    </Collapsible.Root>
+      </Collapsible.Root>
+    </Sidebar.MenuItem>
   {/if}
 {/each}

@@ -36,7 +36,6 @@
   import { goto } from "$app/navigation";
 
   import NavActions from "$lib/components/nav-actions.svelte";
-  import * as Sidebar from "$lib/components/ui/sidebar/index.js";
 
   import {
     deserializeAgentStream,
@@ -78,11 +77,6 @@
   let nodes = $state.raw<TAgentStreamNode[]>([]);
   let edges = $state.raw<TAgentStreamEdge[]>([]);
 
-  // let streamNames = $state.raw<{ id: string; name: string }[]>([]);
-
-  // id -> stream activity
-  // let streamActivities = $state<Record<string, boolean>>({});
-
   function updateNodesAndEdges() {
     nodes = [...stream.nodes];
     edges = [...stream.edges];
@@ -92,58 +86,9 @@
     }
   }
 
-  // function updateStreamNames() {
-  //   streamNames = Object.entries(streams())
-  //     .map(([id, stream]) => ({ id, name: stream.name }))
-  //     .sort((a, b) => a.name.localeCompare(b.name));
-  // }
-
-  // function updateStreamActivities() {
-  //   streamActivities = Object.fromEntries(
-  //     Object.entries(streams()).map(([id, stream]) => [
-  //       id,
-  //       stream.nodes.some((node) => node.data.enabled),
-  //     ]),
-  //   );
-  // }
-
-  // function updateCurrentStreamActivity() {
-  //   streamActivities[streamState.id] = nodes.some((node) => node.data.enabled);
-  // }
-
   onMount(() => {
-    // if (streamState.id === "") {
-    //   Object.entries(streams()).forEach(([id, stream]) => {
-    //     if (stream.name === streamState.name) {
-    //       streamState.id = id;
-    //     }
-    //   });
-    // }
     updateNodesAndEdges();
-    // updateStreamNames();
-    // updateStreamActivities();
-    // return async () => {
-    //   await syncStream();
-    // };
   });
-
-  // async function changeStream(id: string) {
-  //   streamState.id = id;
-  //   streamState.name = streams()[id].name;
-  //   // await syncStream();
-  //   updateNodesAndEdges();
-  // }
-
-  // async function changeStreamByName(name: string) {
-  //   Object.entries(streams()).forEach(([id, stream]) => {
-  //     if (stream.name === name) {
-  //       streamState.id = id;
-  //       streamState.name = name;
-  //     }
-  //   });
-  //   await syncStream();
-  //   updateNodesAndEdges();
-  // }
 
   const handleOnDelete: OnDelete<TAgentStreamNode, TAgentStreamEdge> = async ({
     nodes: deletedNodes,
@@ -154,7 +99,6 @@
     }
     if (deletedNodes && deletedNodes.length > 0) {
       await checkNodeChange(nodes);
-      // updateCurrentStreamActivity();
     }
   };
 
@@ -195,20 +139,6 @@
     }
   }
 
-  // async function syncStream() {
-  //   const viewport = getViewport();
-  //   const stream = serializeAgentStream(
-  //     streamState.id,
-  //     streamState.name,
-  //     nodes,
-  //     edges,
-  //     agentDefs,
-  //     viewport,
-  //   );
-  //   streams()[streamState.id] = deserializeAgentStream(stream, agentDefs);
-  //   await insertAgentStream(stream);
-  // }
-
   // cut, copy and paste
 
   let copiedNodes = $state.raw<AgentSpec[]>([]);
@@ -232,7 +162,6 @@
     edges = edges.filter((edge) => !edge.selected);
     await checkNodeChange(nodes);
     await checkEdgeChange(edges);
-    // updateCurrentStreamActivity();
   }
 
   function copyNodesAndEdges() {
@@ -383,9 +312,6 @@
     if (!sStream.agents || !sStream.channels) return;
     const stream = deserializeAgentStream(sStream);
     streams()[stream.id] = stream;
-    // updateStreamNames();
-    // updateStreamActivities();
-    // await changeStream(stream.id);
     goto(`/stream_editor/${stream.id}`);
   }
 
@@ -445,7 +371,6 @@
           await startAgent(node.id);
         }
       }
-      // updateCurrentStreamActivity();
       return;
     }
 
@@ -456,7 +381,6 @@
         await startAgent(node.id);
       }
     }
-    // updateCurrentStreamActivity();
   }
 
   async function onPause() {
@@ -469,7 +393,6 @@
           await stopAgent(node.id);
         }
       }
-      // updateCurrentStreamActivity();
       return;
     }
 
@@ -480,7 +403,6 @@
         await stopAgent(node.id);
       }
     }
-    // updateCurrentStreamActivity();
   }
 
   async function onToggleErr() {
@@ -559,7 +481,6 @@
 
 <div class="flex flex-col w-full min-h-screen">
   <header class="flex flex-none h-14 items-centger">
-    <Sidebar.Trigger />
     <div class="ms-auto px-3">
       <NavActions data={navActionData} />
     </div>

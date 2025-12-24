@@ -19,11 +19,12 @@
           <Sidebar.MenuButton>
             {#snippet child({ props })}
               <a href={item.url} {...props}>
-                {#if item.icon}
-                  <item.icon />
-                {/if}
+                <item.icon />
                 <span>{item.title}</span>
               </a>
+            {/snippet}
+            {#snippet tooltipContent()}
+              <span>{item.title}</span>
             {/snippet}
           </Sidebar.MenuButton>
         </Sidebar.MenuItem>

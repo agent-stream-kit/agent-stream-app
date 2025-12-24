@@ -18,6 +18,7 @@
   import NewStreamDialog from "./new-stream-dialog.svelte";
   import StreamListActions from "./stream-list-actions.svelte";
   import StreamListName from "./stream-list-name.svelte";
+  import StreamListStatus from "./stream-list-status.svelte";
 
   interface Props {
     streamNames: { id: string; name: string }[];
@@ -61,7 +62,11 @@
     {
       accessorKey: "active",
       header: "Status",
-      cell: (info) => (info.getValue() ? "🟢 Running" : "⚪"),
+      cell: (info) => {
+        return renderComponent(StreamListStatus, {
+          active: info.getValue() as boolean,
+        });
+      },
     },
     {
       id: "actions",
@@ -107,7 +112,7 @@
   });
 </script>
 
-<div class="text-primary p-2">
+<div class="text-primary p-2 w-full">
   <h4>Streams</h4>
   <div class="flex items-center justify-between p-2">
     <div class="py-2">
